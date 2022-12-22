@@ -4,8 +4,8 @@
 /*globals SC statechart */
 
 
-import { Async, Statechart, State, EmptyState } from '../../../../statechart/statechart.js';
-
+import { Async, Statechart, State, EmptyState, StatechartManager } from '../../../../statechart/statechart.js';
+import { MainPane, View } from '../../../../view/view.js';
 
 var pane, viewA, viewB, stateA, stateB, responder = null;
 

@@ -5,7 +5,7 @@
 
 import { SC, GLOBAL } from '../../../../core/core.js';
 import { Async, Statechart, State, EmptyState } from '../../../../statechart/statechart.js';
-
+import { RootResponder } from '../../../../responder/responder.js';
 
 GLOBAL.statechart = null;
 var responder, fooInvokedCount;
@@ -46,9 +46,9 @@ module("Statechart: No Concurrent States - Root Responder Default Responder Test
     
     responder = RootResponder.responder;
     
-    RunLoop.begin();
+    SC.RunLoop.begin();
     responder.set('defaultResponder', 'statechart');
-    RunLoop.end();
+    SC.RunLoop.end();
   },
   
   afterEach: function() {

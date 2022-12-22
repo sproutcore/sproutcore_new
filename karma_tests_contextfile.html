@@ -45,9 +45,12 @@ Reloaded before every execution run.
   <script type="module">
     import { SC } from '/base/core/core.js';
     SC.ready(function () { 
-      window.__karma__.loaded();
-      window.__karma__.start();
-      QUnit.start();
+      if (!window._scTestsDidStart) {
+        window.__karma__.loaded();
+        window.__karma__.start();
+        QUnit.start();
+        window._scTestsDidStart = true;
+      }
     });
   </script>
   <script nomodule>

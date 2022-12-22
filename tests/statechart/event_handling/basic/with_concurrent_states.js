@@ -2,7 +2,7 @@
 // Statechart Unit Test
 // ==========================================================================
 /*globals SC */
-import { Async, Statechart, State, EmptyState } from '../../../..//statechart/statechart.js';
+import { Async, Statechart, State, EmptyState } from '../../../../statechart/statechart.js';
 
 
 var statechart = null;

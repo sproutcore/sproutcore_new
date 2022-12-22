@@ -5,7 +5,9 @@
 
 import { SC, GLOBAL } from '../../../../core/core.js';
 import { Async, Statechart, State, EmptyState } from '../../../../statechart/statechart.js';
-
+import { MainPane } from '../../../../view/view.js';
+import { ButtonView } from '../../../../desktop/desktop.js';
+import { SCEvent } from '../../../../event/event.js';
 
 GLOBAL.statechart = null;
 var pane, button, fooInvokedCount;
@@ -54,7 +56,7 @@ module("Statechart: No Concurrent States - Pane Default Responder Tests", {
       ]
     });
     pane.append();
-    RunLoop.end();
+    SC.RunLoop.end();
 
     button = pane.childViews[0];
   },
@@ -75,20 +77,20 @@ test("click button", function (assert) {
   assert.equal(statechart.stateIsCurrentState('b'), false, 'state b should not be a current state');
 
   target = button.$().get(0);
-  evt = Event.simulateEvent(target, 'mousedown', { which: 1 });
-  Event.trigger(target, "mousedown", [evt]);
+  evt = SCEvent.simulateEvent(target, 'mousedown', { which: 1 });
+  SCEvent.trigger(target, "mousedown", [evt]);
   target = button.$().get(0);
-  Event.trigger(target, "mouseup");
+  SCEvent.trigger(target, "mouseup");
 
   assert.equal(fooInvokedCount, 1, 'foo should have been invoked once');
   assert.equal(statechart.stateIsCurrentState('a'), false, 'state a should not be a current state');
   assert.equal(statechart.stateIsCurrentState('b'), true, 'state b should be a current state');
 
   target = button.$().get(0);
-  evt = Event.simulateEvent(target, 'mousedown', { which: 1 });
-  Event.trigger(target, "mousedown", [evt]);
+  evt = SCEvent.simulateEvent(target, 'mousedown', { which: 1 });
+  SCEvent.trigger(target, "mousedown", [evt]);
   target = button.$().get(0);
-  Event.trigger(target, "mouseup");
+  SCEvent.trigger(target, "mouseup");
 
   assert.equal(fooInvokedCount, 2, 'foo should have been invoked twice');
   assert.equal(statechart.stateIsCurrentState('a'), true, 'state a should be a current state');

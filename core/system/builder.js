@@ -102,7 +102,7 @@ Builder.create = function create(props) {
 
     // the defaultClass is usually this for this constructor. 
     // e.g. View.build() -> this = View
-    ret.defaultClass = this || SC; // fallback 
+    ret.defaultClass = this; // fallback 
     ret.constructor = construct;
 
     // now init the builder object.
