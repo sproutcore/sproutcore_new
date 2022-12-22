@@ -4,7 +4,8 @@
 //            ©2008-2011 Apple Inc. All rights reserved.
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
-import { SCEvent } from "/event/event.js";
+
+import { SCEvent } from "../../../event/event.js";
 
 // // ========================================================================
 // SC.Event Tests

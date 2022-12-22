@@ -20,8 +20,11 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       { pattern: './karma_test_prepend.js', type: 'js', included: true },
+      { pattern: './node_modules/jquery/dist/*.js', type: 'js', include: false },
       { pattern: './core/**/*.js', type: 'module', included: false },
+      { pattern: './responder/**/*.js', type: 'module', included: false },
       { pattern: './event/**/*.js', type: 'module', included: false },
+      { pattern: './view/**/*.js', type: 'module', included: false },
       { pattern: './tests/qunit/*.js', type: 'js', included: false },
       // { pattern: './tests/core/**/*.js', type: 'module' },
       { pattern: './tests/event/**/*.js', type: 'module' },
@@ -46,7 +49,6 @@ module.exports = function(config) {
     // list of files / patterns to exclude
     exclude: [
       './tests/core/scworker/*.js',
-      // './node_modules/qunit/**/*.js', // this is a trick to bypass the autoloading of qunit by karma-qunit
       './tests/app.js',
     ],
 

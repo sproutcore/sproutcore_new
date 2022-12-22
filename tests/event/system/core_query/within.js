@@ -7,7 +7,8 @@
 // ========================================================================
 // CoreQuery Tests
 // ========================================================================
-import { CoreQuery } from "/event/event.js";
+
+import "../../../../event/event.js";
 
 // This file tests additions to CoreQuery.  These should function even if you use
 // jQuery

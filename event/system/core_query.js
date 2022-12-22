@@ -5,7 +5,7 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 
-import '../../node_modules/jquery/dist/jquery.slim.js';
+import "../../node_modules/jquery/dist/jquery.slim.js";
 import { SC } from '../../core/core.js';
 
 // @ts-ignore

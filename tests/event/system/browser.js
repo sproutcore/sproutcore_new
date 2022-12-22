@@ -4,7 +4,8 @@
 //            Portions ©2008-2011 Apple Inc. All rights reserved.
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
-import { browser } from '/event/event.js';
+
+import { browser } from '../../../event/event.js';
 
 test("browser.compare()", function (assert) {
   
