@@ -29,7 +29,7 @@ export async function __runtimeDeps () {
   const b = await import('./binding.js');
   Binding = b.Binding;
   // it can happen things aren't loaded yet when they are required, so we buffer these
-  proxyBuffer.forEach(evt => scWorker._handleReply.call(scWorker, evt));
+  if (proxyBuffer) proxyBuffer.forEach(evt => scWorker._handleReply.call(scWorker, evt));
   proxyBuffer = undefined;
 }
 

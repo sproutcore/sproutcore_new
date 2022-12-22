@@ -2,9 +2,7 @@
 // Generated on Sat Mar 27 2021 18:49:28 GMT+0100 (Midden-Europese standaardtijd)
 
 const path = require('path');
-const webpack = require('webpack');
 const fs = require('fs');
-const QUnit = require('qunit');
 
 module.exports = function(config) {
   config.set({
@@ -17,11 +15,16 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['qunit'],
 
-
+    customContextFile: './karma_tests_contextfile.html',
+    customDebugFile: './karma_tests_debugfile.html',
     // list of files / patterns to load in the browser
     files: [
-      { pattern: './tests/core/**/*.js', type: 'module' },
-      // { pattern: './tests/event/**/*.js', type: 'module' },
+      { pattern: './karma_test_prepend.js', type: 'js', included: true },
+      { pattern: './core/**/*.js', type: 'module', included: false },
+      { pattern: './event/**/*.js', type: 'module', included: false },
+      { pattern: './tests/qunit/*.js', type: 'js', included: false },
+      // { pattern: './tests/core/**/*.js', type: 'module' },
+      { pattern: './tests/event/**/*.js', type: 'module' },
       // { pattern: './tests/responder/**/*.js', type: 'module' },
       // { pattern: './tests/statechart/**/*.js', type: 'module' },
       // { pattern: './tests/testing/**/*.js', type: 'module' },
@@ -29,17 +32,30 @@ module.exports = function(config) {
       // { pattern: './**/*.css', included: true, watched: false }
     ],
 
+    client: {
+      clearContext: false,
+      useIframe: true,
+      qunit: {
+        showUI: true,
+        autostart: false
+        // testTimeout: 5000,
+        // included: false,
+      }
+    },
 
     // list of files / patterns to exclude
     exclude: [
+      './tests/core/scworker/*.js',
+      // './node_modules/qunit/**/*.js', // this is a trick to bypass the autoloading of qunit by karma-qunit
+      './tests/app.js',
     ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'tests/**/*.js': ['webpack']
-    },
+    // preprocessors: {
+    //   'tests/**/*.js': ['webpack']
+    // },
 
     // webpack: {
     //   entry: {
@@ -48,21 +64,6 @@ module.exports = function(config) {
     //     }
     //   }
     // },
-    webpack: {
-      // qunit is provided, I just need to provide module and test
-      plugins: [
-        new webpack.DefinePlugin({
-          module: 'QUnit.module',
-          test: 'QUnit.test',
-          assert: 'QUnit.assert'
-        }),
-        new webpack.ProvidePlugin({
-          $: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.slim.js'),
-          jQuery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.slim.js'),    
-        })
-      ]
-    },
-    // plugins: ['karma-webpack'],
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
