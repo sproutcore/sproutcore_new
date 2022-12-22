@@ -363,10 +363,10 @@ export const Logger = SCObject.create({
       @param {String} message A message or a format string
       @param {...String} [optionalFormatArgs]       (optional)  Other arguments to pass to String.fmt() when using a format string
     */
-    debug: function (message, ...optionalFormatArgs) {
+    debug: function (message, optionalFormatArgs) {
       // Implementation note:  To avoid having to put the debug() shorthand
       // variant inside a function wrapper, we'll avoid 'this'.
-      Logger._handleMessage(LOGGER_LEVEL_DEBUG, true, message, optionalFormatArgs);
+      Logger._handleMessage(LOGGER_LEVEL_DEBUG, true, message, arguments);
     },
 
 
