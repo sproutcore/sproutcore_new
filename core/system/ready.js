@@ -164,14 +164,14 @@ export const readyMixin = {
 
   onReady: {
 
-    done: function () {
+    done: async function () {
 
       console.log("SPROUTCORE_READY_DONE_FUNCTION");
       // first wait till the promises are resolved
       if (getSetting('isReady')) return;
       setSetting('isReady', true);
 
-      Promise.all(runtimeDeps).then(() => {
+      return Promise.all(runtimeDeps).then(() => {
         console.log("SPROUTCORE READY_DONE AFTER promise.all");
 
         RunLoop.begin();
@@ -203,7 +203,7 @@ export const readyMixin = {
           // _readyQueue = null;
         }
 
-        Promise.all(promises).then(r => {
+        return Promise.all(promises).then(r => {
           console.log("About to run global main");
           if (global.main && !getSetting('suppressMain') && (getSetting('mode') === APP_MODE)) { global.main(); }
           RunLoop.end();

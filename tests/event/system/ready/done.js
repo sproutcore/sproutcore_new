@@ -8,7 +8,7 @@
 import { SC, GLOBAL } from "/core/core.js";
 
 var realMainFunction, realApplicationMode, timesMainCalled;
-module("onReady.done", {
+module("onReady.done for Test mode", {
   beforeEach: function() {
     timesMainCalled = 0;
 
@@ -28,15 +28,43 @@ module("onReady.done", {
 });
 
 test("When the application is done loading in test mode", function (assert) {
+  assert.expect(1);
+  const cb = assert.async();
   SC.mode = "TEST_MODE";
-  SC.onReady.done();
+  SC.onReady.done().then(r => {
+    assert.equal(timesMainCalled, 0, "main should not have been called");
+    cb();
+  });
 
-  assert.equal(timesMainCalled, 0, "main should not have been called");
+});
+
+module("onReady.done for App mode", {
+  beforeEach: function() {
+    timesMainCalled = 0;
+
+    realMainFunction = GLOBAL.main;
+    GLOBAL.main = function() {
+      timesMainCalled += 1;
+    };
+
+    realApplicationMode = SC.mode;
+  },
+
+  afterEach: function() {
+    GLOBAL.main = realMainFunction;
+    SC.mode = realApplicationMode;
+    SC.isReady = false;
+  }
 });
 
 test("When the application is done loading in application mode", function (assert) {
+  assert.expect(1);
+  const cb = assert.async();
   SC.mode = "APP_MODE";
-  SC.onReady.done();
+  SC.onReady.done().then(r => {
+    assert.equal(timesMainCalled, 1, "main should have been called");
+    cb();
+  })
 
-  assert.equal(timesMainCalled, 1, "main should have been called");
+
 });
