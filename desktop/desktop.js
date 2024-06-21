@@ -46,6 +46,7 @@ import './render_delegates/workspace.js';
 SC.setSetting('allowsBackspaceToPreviousPage', false);
 
 export { ScrollerView, OverlayScrollerView } from './views/scroller.js';
+export { ListItemView } from './views/list_item.js';
 export { ButtonView } from './views/button.js';
 export { CheckboxView } from './views/checkbox.js';
 export * from './system/constants.js';

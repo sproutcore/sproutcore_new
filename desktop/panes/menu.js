@@ -9,7 +9,7 @@ import { bodyOverflowArbitrator, propertyFromRenderDelegate, REGULAR_CONTROL_SIZ
 import { MenuItemView } from "../views/menu_item.js";
 import { MenuScrollView } from "../views/menu_scroll.js";
 import { PickerPane, PICKER_MENU } from "./picker.js";
-
+import { SC } from '../../core/core.js';
 
 /**
   @class

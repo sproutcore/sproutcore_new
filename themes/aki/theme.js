@@ -4,7 +4,7 @@
 
 import { SC } from '../../core/core.js';
 import { BaseTheme, Theme } from '../../view/view.js';
-import './css.js';
+// import './css.js';
 import './resources/scroller/scroller.js';
 /**
  * @class
