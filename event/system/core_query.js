@@ -6,6 +6,7 @@
 // ==========================================================================
 
 import "../../node_modules/jquery/dist/jquery.slim.js";
+// import jQuery from 'jquery';
 import { SC } from '../../core/core.js';
 
 // @ts-ignore

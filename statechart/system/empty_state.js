@@ -7,6 +7,7 @@
 
 /*globals SC */
 
+import { registerModule } from '../../core/system/root.js';
 import { State } from './state.js';
 // sc_require('system/state');
 
@@ -32,3 +33,5 @@ export const EmptyState = State.extend(/** @scope EmptyState.prototype */{
   }
   
 });
+
+registerModule('empty_state', EmptyState);

@@ -6,6 +6,7 @@
 // ==========================================================================
 
 import { SC } from '../../core/core.js';
+import { registerModule } from '../../core/system/root.js';
 
 /**
   @class
@@ -93,3 +94,5 @@ export const HistoryState = SC.Object.extend(
   }.observes('*parentState.historyState')
 
 });
+
+registerModule('history_state', HistoryState);

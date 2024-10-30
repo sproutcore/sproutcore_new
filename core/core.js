@@ -1,6 +1,6 @@
 
+import { registerModule, registerRuntimeDep } from './system/root.js';
 import { ObserverSet } from './private/observer_set.js';
-
 import global from "./system/global.js";
 import { getSetting, setSetting } from "./system/settings.js";
 import { SCString } from "./system/string.js";
@@ -37,7 +37,7 @@ import { DelegateSupport } from './mixins/delegate_support.js';
 import { CoreSet } from './system/core_set.js';
 
 import { detectedBrowser, OS, CLASS_PREFIX, CSS_PREFIX, BROWSER, ENGINE, DEVICE, DOM_PREFIX } from './system/browser.js';
-import { readyMixin, registerRuntimeDep } from './system/ready.js';
+import { readyMixin } from './system/ready.js';
 
 import { Locale, metricsFor, stringsFor, methodForLocale,  hashesForLocale, loadLangFiles } from './system/locale.js';
 import { Timer } from './system/timer.js';

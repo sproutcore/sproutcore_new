@@ -11,11 +11,15 @@ import { Async } from './async.js';
 import { HistoryState } from './history_state.js';
 import { StatePathMatcher } from '../private/state_path_matcher.js';
 import { StateRouteHandlerContext } from './state_route_handler_context.js';
+import { registerRuntimeDep } from '../../core/system/root.js';
 
 let EmptyState;
-import('./empty_state.js').then(r => {
-  EmptyState = r.EmptyState;
-})
+registerRuntimeDep('empty_state', v => {
+  EmptyState = v;
+});
+// import('./empty_state.js').then(r => {
+//   EmptyState = r.EmptyState;
+// })
 
 //@if(debug)
 export const TRACE_STATECHART_STYLE = {
@@ -582,7 +586,7 @@ export const State = SC.Object.extend(
 
     if (len === 1) {
       state = State;
-    } else if (len === 2 && SC.typeOf(state) === T_HASH) {
+    } else if (len === 2 && SC.typeOf(state) === SC.T_HASH) {
       attr = state;
       state = State;
     }

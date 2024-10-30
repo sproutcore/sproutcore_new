@@ -10,6 +10,7 @@ import global from './global.js';
 import { APP_MODE, T_STRING } from './constants.js';
 import { typeOf } from './base.js';
 import { RunLoop } from './runloop.js';
+import { registerModule, registerRuntimeDep } from './root.js';
 
 // import { __runtimeDeps as obsRuntimeDeps } from '../mixins/observable.js';
 // import { __runtimeDeps as aryRuntimeDeps } from '../mixins/array.js';
@@ -30,20 +31,15 @@ if (!getSetting('_readyQueue')) {
 }
 
 let Locale;
-const localeRuntimeDeps = async function () {
-  const l = await import('./locale.js');
-  Locale = l.Locale;
-}
+registerRuntimeDep('locale', v => {
+  Locale = v;
+});
+// const localeRuntimeDeps = async function () {
+//   const l = await import('./locale.js');
+//   Locale = l.Locale;
+// }
 
-const runtimeDeps = [
-  // scWorkerRuntimeDeps(),
-  // obsRuntimeDeps(),
-  // aryRuntimeDeps(),
-  // bindingRuntimeDeps(),
-  // obsSetRuntimeDeps(),
-  // objRuntimeDeps(),
-  // localeRuntimeDeps(),
-];
+
 
 // if (global.jQuery) {
 //   // let apps ignore the regular onReady handling if they need to
@@ -65,10 +61,6 @@ const runtimeDeps = [
 //   // trigger SC.onReady?
 //   // SC.onReady.done();
 // })
-
-export function registerRuntimeDep(p) {
-  runtimeDeps.push(p);
-}
 
 
 export const readyMixin = {
@@ -170,7 +162,7 @@ export const readyMixin = {
       // first wait till the promises are resolved
       if (getSetting('isReady')) return;
       setSetting('isReady', true);
-      
+      let runtimeDeps = []; // empty as we might not need this anymore
       return Promise.all(runtimeDeps).then(() => {
         console.log("SPROUTCORE READY_DONE AFTER promise.all");
 
@@ -274,3 +266,5 @@ function loadClassicScripts() {
   }));
 
 }
+
+registerModule('scready', readyMixin);

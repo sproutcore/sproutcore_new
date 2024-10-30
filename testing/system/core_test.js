@@ -164,7 +164,7 @@ export const CoreTest = {
         } else {
           if (callCount === false) callCount = 0;
           if (!msg) msg = CoreTest.fmt("%@ should be called X times", this.stubName);
-          equals(this.callCount, callCount, msg);
+          QUnit.assert.equal(this.callCount, callCount, msg);
         }
       };
     }
