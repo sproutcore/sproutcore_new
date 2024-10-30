@@ -265,7 +265,7 @@ export const ArraySuite = TestSuite.create("Verify Array compliance: %@#%@", {
     Example of how to implement newObject
   */
   newObject: function(expected) {
-    if (!expected || typeOf(expected) === T_NUMBER) {
+    if (!expected || SC.typeOf(expected) === SC.T_NUMBER) {
       expected = this.expected(expected);
     }
     

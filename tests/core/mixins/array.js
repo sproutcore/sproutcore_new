@@ -13,7 +13,9 @@
 
 // sc_require('debug/test_suites/array');
 
-// SC.ArraySuite.generate("built-in Array");
+import { ArraySuite } from '../system/test_suites/array.js';
+
+ArraySuite.generate("built-in Array");
 
 // // ..........................................................
 // // DUMMY ARRAY (BASIC FAKE IMPLEMENTATION)
