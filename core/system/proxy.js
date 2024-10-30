@@ -7,6 +7,7 @@ this "controller" need to point at the same communication channel, and cache any
 at the other side.
 Also, the point is that where the object controller has a content, we don't. We will pretend we have though.
 */
+import { registerModule } from './root.js';
 import { ENV } from './env.js';
 import { SCObject } from './object.js';
 
@@ -79,3 +80,5 @@ export const SCProxy = SCObject.extend({
     }
   }
 })
+
+registerModule('scproxy', SCProxy);

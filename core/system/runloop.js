@@ -10,6 +10,7 @@ import { ObserverSet } from '../private/observer_set.js';
 import { SCObject } from './object.js';
 import { getSetting } from './settings.js';
 import { Binding } from './binding.js';
+import { registerModule } from './root.js';
 
 
 let Logger = console; // use console until Logger is available
@@ -707,3 +708,6 @@ RunLoop.wrapFunction = function (func) {
   };
   return ret;
 };
+
+registerModule('runloop', RunLoop);
+registerModule('run', run);

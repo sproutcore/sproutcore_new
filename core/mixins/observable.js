@@ -14,21 +14,30 @@ import { T_HASH } from '../system/constants.js';
 import { ObserverQueue } from '../private/observer_queue.js';
 import { CoreSet } from '../system/core_set.js';
 import GLOBAL from '../system/global.js';
+import { Binding } from '../system/binding.js';
+import { registerRuntimeDep } from '../system/root.js';
 
 let PropertyChain;
+registerRuntimeDep('propertychain', v => {
+  PropertyChain = v;
+});
 
 // let ObserverQueue;
 
-let Binding;
+// let Binding;
 let Logger;
-export async function __runtimeDeps () {
-  const p = await import('../private/property_chain.js');
-  PropertyChain = p.PropertyChain;
-  const b = await import('../system/binding.js');
-  Binding = b.Binding;
-  const l = await import('../system/logger.js');
-  Logger = l.Logger;
-}
+registerRuntimeDep('logger', v => {
+  Logger = v;
+});
+
+// export async function __runtimeDeps () {
+//   const p = await import('../private/property_chain.js');
+//   PropertyChain = p.PropertyChain;
+//   // const b = await import('../system/binding.js');
+//   // Binding = b.Binding;
+//   const l = await import('../system/logger.js');
+//   Logger = l.Logger;
+// }
 
 let _TMP_SEEN_SET;
 

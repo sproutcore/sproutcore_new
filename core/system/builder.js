@@ -9,6 +9,7 @@ import { A, beget, mixin, typeOf } from "./base.js";
 import { T_ARRAY } from "./constants.js";
 import "../ext/string.js";
 import { Enumerable } from '../mixins/enumerable.js';
+import { registerModule } from "./root.js";
 
 /** @class
 
@@ -203,5 +204,5 @@ Builder.fn = {
   }
 })();
 
-
+registerModule('builder', Builder);
 

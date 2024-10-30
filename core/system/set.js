@@ -11,6 +11,7 @@ import { Copyable } from '../mixins/copyable.js';
 import { mixin, beget, hashFor, none, guidFor } from './base.js';
 import { FROZEN_ERROR, T_FUNCTION } from './constants.js';
 import { Observable } from '../mixins/observable.js';
+import { registerModule } from './root.js';
 
 // IMPORTANT NOTE:  This file actually defines two classes:
 // SC.Set is a fully observable set class documented below.
@@ -551,3 +552,5 @@ CoreSet.isObservable = false;
 
 /** @private */
 CoreSet.constructor = CoreSet;
+
+registerModule('scset', SCSet);

@@ -13,6 +13,7 @@ import { guidFor, none } from './base.js';
 import { IndexSet } from './index_set.js';
 import { FROZEN_ERROR } from './constants.js';
 import { CoreSet } from './core_set.js';
+import { registerModule } from './root.js';
 
 /** @class
 
@@ -699,3 +700,4 @@ SelectionSet.prototype.clone = SelectionSet.prototype.copy;
 */
 SelectionSet.EMPTY = SelectionSet.create().freeze();
 
+registerModule('selectionset', SelectionSet);

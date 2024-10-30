@@ -10,6 +10,7 @@ import { Copyable } from './mixins/copyable.js';
 import { Comparable } from './mixins/comparable.js';
 import { Enumerable } from './mixins/enumerable.js';
 import { Freezable } from './mixins/freezable.js';
+import { PropertyChain } from './private/property_chain.js';
 import { SCObject, kindOf, instanceOf, _object_className, _enhance } from './system/object.js';
 import { Observable, get, getPath } from './mixins/observable.js';
 import { CoreArray, SCArray } from './mixins/array.js';
@@ -110,6 +111,7 @@ export const SC = {
   ObserverSet,
   RangeObserver,
   ObserverQueue,
+  PropertyChain,
   // Observers: ObserverQueue, // backwards compat
   Set: SCSet,
   typeOf,

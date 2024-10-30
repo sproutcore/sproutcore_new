@@ -9,6 +9,12 @@ import { $A, none, typeOf } from "./base.js";
 import { T_NUMBER, T_STRING } from "./constants.js";
 import { Locale } from "./locale.js";
 import { error } from "./logger.js";
+import { registerRuntimeDep } from "./root.js";
+
+// let Locale;
+// registerRuntimeDep('locale', v => {
+//   Locale = v;
+// });
 
 
 const STRING_TITLEIZE_REGEXP = (/([\s|\-|\_|\n])([^\s|\-|\_|\n]?)/g);

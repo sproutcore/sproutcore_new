@@ -5,11 +5,13 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 
+import { registerModule } from './root.js';
 import { Enumerable } from '../mixins/enumerable.js';
 import { Freezable } from '../mixins/freezable.js';
 import { Copyable } from '../mixins/copyable.js';
 import { mixin, beget, hashFor, none, guidFor } from './base.js';
 import { FROZEN_ERROR, T_FUNCTION } from './constants.js';
+
 
 // IMPORTANT NOTE:  This file actually defines two classes:
 // SC.Set is a fully observable set class documented below.
@@ -539,3 +541,4 @@ CoreSet.removeObject = CoreSet.remove;
 
 CoreSet._pool = [];
 
+registerModule('coreset', CoreSet);

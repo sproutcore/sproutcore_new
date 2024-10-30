@@ -11,12 +11,12 @@ import { APP_MODE, T_STRING } from './constants.js';
 import { typeOf } from './base.js';
 import { RunLoop } from './runloop.js';
 
-import { __runtimeDeps as obsRuntimeDeps } from '../mixins/observable.js';
-import { __runtimeDeps as aryRuntimeDeps } from '../mixins/array.js';
-import { __runtimeDeps as obsSetRuntimeDeps } from '../private/observer_set.js';
-import { __runtimeDeps as objRuntimeDeps } from './object.js';
-import { __runtimeDeps as bindingRuntimeDeps } from './binding.js';
-import { __runtimeDeps as scWorkerRuntimeDeps } from './scworker.js';
+// import { __runtimeDeps as obsRuntimeDeps } from '../mixins/observable.js';
+// import { __runtimeDeps as aryRuntimeDeps } from '../mixins/array.js';
+// import { __runtimeDeps as obsSetRuntimeDeps } from '../private/observer_set.js';
+// import { __runtimeDeps as objRuntimeDeps } from './object.js';
+// // import { __runtimeDeps as bindingRuntimeDeps } from './binding.js';
+// import { __runtimeDeps as scWorkerRuntimeDeps } from './scworker.js';
 
 
 setSetting('BENCHMARK_LOG_READY', true);
@@ -36,13 +36,13 @@ const localeRuntimeDeps = async function () {
 }
 
 const runtimeDeps = [
-  scWorkerRuntimeDeps(),
-  obsRuntimeDeps(),
-  aryRuntimeDeps(),
-  bindingRuntimeDeps(),
-  obsSetRuntimeDeps(),
-  objRuntimeDeps(),
-  localeRuntimeDeps(),
+  // scWorkerRuntimeDeps(),
+  // obsRuntimeDeps(),
+  // aryRuntimeDeps(),
+  // bindingRuntimeDeps(),
+  // obsSetRuntimeDeps(),
+  // objRuntimeDeps(),
+  // localeRuntimeDeps(),
 ];
 
 // if (global.jQuery) {
@@ -170,25 +170,12 @@ export const readyMixin = {
       // first wait till the promises are resolved
       if (getSetting('isReady')) return;
       setSetting('isReady', true);
-
+      
       return Promise.all(runtimeDeps).then(() => {
         console.log("SPROUTCORE READY_DONE AFTER promise.all");
 
         RunLoop.begin();
 
-        if (Locale) {
-          console.log("GENERATING LOCALE");
-          Locale.createCurrentLocale();
-          var loc = Locale.currentLanguage.toLowerCase();
-          if (global.jQuery) {
-            jQuery("body").addClass(loc);
-
-            jQuery("html").attr("lang", loc);
-
-            jQuery("#loading").remove();
-          }
-        }
-        // debugger;
         var queue = getSetting('_readyQueue'), idx, len;
         const promises = [loadClassicScripts()];
         if (queue) {
@@ -204,6 +191,28 @@ export const readyMixin = {
         }
 
         return Promise.all(promises).then(r => {
+          if (Locale) {
+            console.log("GENERATING LOCALE");
+            Locale.createCurrentLocale();
+            var loc = Locale.currentLanguage.toLowerCase();
+            if (global.jQuery) {
+              jQuery("body").addClass(loc);
+  
+              jQuery("html").attr("lang", loc);
+  
+              jQuery("#loading").remove();
+            }
+            else if (global.SC && global.SC.CoreQuery) {
+              SC.CoreQuery("#loading").remove();
+            }
+            else {
+              const loadingDiv = document.getElementById("loading");
+              if (loadingDiv) {
+                loadingDiv.remove();
+              }
+            }
+          }
+
           console.log("About to run global main");
           if (global.main && !getSetting('suppressMain') && (getSetting('mode') === APP_MODE)) { global.main(); }
           RunLoop.end();
@@ -229,7 +238,14 @@ if (global.jQuery) {
 }
 else if (global.onload === null) {
   if (!getSetting('suppressOnReady')) {
-    global.onload = readyMixin.onReady.done;
+    console.log('setting onload');
+    // global.onload = readyMixin.onReady.done;
+    if (global.addEventListener && global.addEventListener instanceof Function) {
+      global.addEventListener('load', readyMixin.onReady.done);
+    }
+    else {
+      global.onload = readyMixin.onReady.done;
+    }
   }
 }
 

@@ -1,3 +1,5 @@
+import { registerModule } from "./root.js";
+
 let env;
 if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
   // huzzah! a worker!
@@ -21,3 +23,5 @@ if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScop
 // // }
 
 export const ENV = env;
+
+registerModule('env', env);

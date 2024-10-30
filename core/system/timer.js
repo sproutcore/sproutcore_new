@@ -13,6 +13,7 @@ import { T_FUNCTION, T_STRING } from './constants.js';
 import global from './global.js';
 import { Logger } from './logger.js';
 import { SCObject } from './object.js';
+import { registerModule } from './root.js';
 import { RunLoop } from './runloop.js';
 
 // NOTE: Timer does have a run time dependency on RootResponder, but only as a way of catching
@@ -570,3 +571,4 @@ Timer.returnTimerToPool = function(timer) {
 };
 
 
+registerModule('timer', Timer);

@@ -3,6 +3,7 @@
 import { ENV } from './env.js';
 import { guidFor, requiredObjectForPropertyPath, tupleForPropertyPath } from './base.js';
 import { ObserverQueue } from '../private/observer_queue.js';
+import { registerModule, registerRuntimeDep } from './root.js';
 // import { Binding } from './binding.js';
 
 /*
@@ -16,22 +17,22 @@ Protocol for messaging: RPC like structure
 */
 
 let SCProxy;
-let RunLoop; 
-let Binding;
 let proxyBuffer = [];
-
-export async function __runtimeDeps () {
-  // console.log('runtime deps in scworker in ', ENV);
-  const p = await import('./proxy.js');
-  SCProxy = p.SCProxy;
-  const r = await import('./runloop.js');
-  RunLoop = r.RunLoop;
-  const b = await import('./binding.js');
-  Binding = b.Binding;
-  // it can happen things aren't loaded yet when they are required, so we buffer these
+registerRuntimeDep('scproxy', v => {
+  SCProxy = v.SCProxy;
   if (proxyBuffer) proxyBuffer.forEach(evt => scWorker._handleReply.call(scWorker, evt));
   proxyBuffer = undefined;
-}
+});
+
+let RunLoop; 
+registerRuntimeDep('runloop', v => {
+  RunLoop = v.RunLoop;
+});
+
+let Binding;
+registerRuntimeDep('binding', v => {
+  Binding = v.Binding;
+});
 
 export const scWorker = {
 
@@ -317,11 +318,11 @@ export const scWorker = {
       p.setIfChanged(key, value); 
     });
   }
-
-
 }
 
 if (ENV === 'worker') scWorker.init();
+
+registerModule('scworker', scWorker);
 
 // // I strongly think that simply assigning _handleWorkerReply will also work because of using a ES6 method instead of a function
 // // appWorker.onmessage = function (evt) {

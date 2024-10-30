@@ -1,6 +1,7 @@
 // sc_require('system/object');
 
 import { SCObject } from '../system/object.js';
+import { registerModule } from '../system/root.js';
 
 /**
   @class
@@ -196,3 +197,5 @@ PropertyChain.createChain = function (path, target, toInvalidate) {
 
   return root;
 };
+
+registerModule('propertychain', PropertyChain);

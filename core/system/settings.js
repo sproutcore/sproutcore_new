@@ -29,6 +29,9 @@ export function getSetting(name) {
  * @returns {any}
  */
 export function setSetting(name, value, overWrite = true) {
-  settings[name] = value;
+  if (!overWrite) {
+
+  }
+  else settings[name] = value;
   return value;
 }

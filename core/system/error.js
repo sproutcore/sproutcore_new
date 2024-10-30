@@ -10,6 +10,7 @@ import { SCObject } from './object.js';
 import { Logger } from './logger.js';
 import { guidFor } from './base.js';
 import { get } from '../mixins/observable.js';
+import { registerModule } from './root.js';
 
 /**
   @class
@@ -217,3 +218,6 @@ export const $val = val;
   @type Number
 */
 SCError.HAS_MULTIPLE_VALUES = -100;
+
+
+registerModule('scerror', SCError);

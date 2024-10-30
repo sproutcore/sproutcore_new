@@ -9,6 +9,7 @@ import { setSetting, getSetting } from "./settings.js";
 import { SCObject } from './object.js';
 import { none, typeOf } from "./base.js";
 import { T_STRING } from "./constants.js";
+import { registerModule } from "./root.js";
 
 // ..........................................................
 // CONSTANTS
@@ -1634,3 +1635,5 @@ export const debug = Logger.debug;
 export const info = Logger.info;
 export const warn = Logger.warn;
 export const error = Logger.error;
+
+registerModule('logger', Logger);

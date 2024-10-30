@@ -5,32 +5,57 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 
+import { registerModule, registerRuntimeDep } from './root.js';
+
 import '../ext/function.js';
 import { getSetting, setSetting } from './settings.js';
 import { beget, typeOf, tupleForPropertyPath, none, isArray, guidFor } from './base.js';
 import { T_ERROR, T_BOOL, T_ARRAY, T_STRING, T_NUMBER, T_FUNCTION } from './constants.js';
 import { CoreSet } from './core_set.js';
 import { property } from './function.js';
-import { RunLoop, run } from './runloop.js';
+// import { RunLoop, run } from './runloop.js';
 import { ObserverQueue } from '../private/observer_queue.js';
 import { scWorker } from './scworker.js';
 
+
+
+
 // sc_require('system/object');
 let SCObject;
-let Benchmark;
-// let ObserverQueue;
-let Logger;
-// let RunLoop;
+registerRuntimeDep('scobject', (v) => {
+  SCObject = v;
+});
 
-export async function __runtimeDeps () {
-  const o = await import('./object.js');
-  SCObject = o.SCObject;
-  // import('./benchmark.js').then(r => Benchmark = r.Benchmark);
-  // import('../private/observer_queue.js').then(r => ObserverQueue = r.ObserverQueue);
-  const l = await import('./logger.js');
-  Logger = l.Logger;
-  // import('./runloop.js').then(r => RunLoop = r.RunLoop);
-}
+// let Benchmark = SC.;
+// let ObserverQueue;
+
+let Logger;
+registerRuntimeDep('logger', (v) => {
+  Logger = v;
+});
+
+let RunLoop;
+let run;
+registerRuntimeDep('runloop', (v) => {
+  RunLoop = v;
+});
+
+registerRuntimeDep('run', (v) => {
+  run = v;
+});
+
+// export async function __runtimeDeps () {
+//   const o = await import('./object.js');
+//   SCObject = o.SCObject;
+//   // import('./benchmark.js').then(r => Benchmark = r.Benchmark);
+//   // import('../private/observer_queue.js').then(r => ObserverQueue = r.ObserverQueue);
+//   const l = await import('./logger.js');
+//   Logger = l.Logger;
+//   import('./runloop.js').then(r => {
+//     RunLoop = r.RunLoop;
+//     run = r.run;
+//   });
+// }
 
 
 /**@typedef {[Object, String]} Tuple */
@@ -401,7 +426,7 @@ export const Binding = {
 
     Binding._connectQueue.add(this);
 
-    if (!RunLoop.isRunLoopInProgress()) {
+    if (RunLoop && !RunLoop.isRunLoopInProgress()) {
       this._scheduleSync();
     }
 
@@ -626,7 +651,7 @@ export const Binding = {
 
   /** @private */
   _scheduleSync: function () {
-    if (RunLoop.isRunLoopInProgress() || Binding._syncScheduled) {
+    if (RunLoop && RunLoop.isRunLoopInProgress() || Binding._syncScheduled) {
       return;
     }
     Binding._syncScheduled = true;
@@ -1575,3 +1600,6 @@ export const Binding = {
 export const binding = function (path, root) {
   return Binding.from(path, root);
 };
+
+
+registerModule('binding', Binding);

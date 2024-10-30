@@ -5,28 +5,40 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 
-// import { ObserverQueue } from '../private/observer_queue.js';
-// import { CoreArray } from '../mixins/array.js';
 import { Observable } from '../mixins/observable.js';
-// import { ObjectMixinProtocol } from '../protocols/mixin_protocol.js';
 import { getSetting, setSetting } from './settings.js';
 import { $A, EMPTY_ARRAY, K, mixin, generateGuid, beget, clone, typeOf, guidFor } from './base.js';
 import { T_CLASS, T_OBJECT, T_HASH, T_STRING } from './constants.js';
 import { SCSet, CoreSet } from './set.js';
-let Benchmark;
+import { registerRuntimeDep, registerModule } from './root.js';
+
+// let Benchmark;
 
 let RunLoop;
-let Timer;
-
 let _getRecentStack;
-export async function __runtimeDeps () {
-  // import('./benchmark.js').then(m => Benchmark = m.Benchmark);
-  const r = await import('./runloop.js');
-  RunLoop = r.RunLoop;
-  const t = await import('./timer.js');
-  Timer = t.Timer;
-  _getRecentStack = r._getRecentStack;
-}
+registerRuntimeDep('runloop', v => {
+  RunLoop = v;
+});
+
+registerRuntimeDep('getRecentStack', v => {
+  _getRecentStack = v;
+});
+
+
+let Timer;
+registerRuntimeDep('timer', v => {
+  Timer = v;
+});
+
+
+// export async function __runtimeDeps () {
+//   // import('./benchmark.js').then(m => Benchmark = m.Benchmark);
+//   const r = await import('./runloop.js');
+//   RunLoop = r.RunLoop;
+//   const t = await import('./timer.js');
+//   Timer = t.Timer;
+//   _getRecentStack = r._getRecentStack;
+// }
 
 /*global*/
 
@@ -1219,3 +1231,6 @@ export const _object_className = function (obj) {
   while (ret && !ret._object_className) ret = ret.superclass;
   return (ret && ret._object_className) ? ret._object_className : 'Anonymous';
 };
+
+
+registerModule('scobject', SCObject);

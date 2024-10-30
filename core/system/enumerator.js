@@ -5,6 +5,8 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 
+import { registerModule } from "./root.js";
+
 /**
   @class
 
@@ -118,3 +120,6 @@ SCEnumerator._pushContext = function (context) {
   cache.push(context);
   return null;
 };
+
+
+registerModule('scenumerator', SCEnumerator);

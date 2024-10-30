@@ -11,6 +11,7 @@ import { warn } from './logger.js';
 import { SCObject } from './object.js';
 import { detectedBrowser as browser } from './browser.js';
 import { readyMixin } from './ready.js';
+import { registerModule } from './root.js';
 
 /**
   The Locale defined information about a specific locale, including date and
@@ -430,6 +431,7 @@ Locale.mixin(/** @scope Locale */ {
 
 }) ;
 
+
 /**
   This locales hash contains all of the locales defined by SproutCore and
   by your own application.  See the Locale class definition for the
@@ -518,6 +520,20 @@ export const loadLangFiles = function (cb) {
   });
 };
 
+registerModule('locale', Locale);
+
+// getter and setter for currentLocale to prevent accidental overwriting
+let __currentLocale = null;
+Object.defineProperty(Locale, 'currentLocale', {
+  get: function () {
+    return __currentLocale;
+  },
+  set: function (val) {
+    if (val !== undefined && val !== null) {
+      __currentLocale = val;
+    }
+  }
+});
 
 /*
 Is there a way to get localization as part of the import structure...

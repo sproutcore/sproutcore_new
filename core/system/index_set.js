@@ -11,6 +11,7 @@ import { Freezable } from '../mixins/freezable.js';
 import { Copyable } from '../mixins/copyable.js';
 import { mixin, typeOf, none, beget, A } from './base.js';
 import { T_HASH, T_NUMBER, FROZEN_ERROR } from './constants.js';
+import { registerModule } from './root.js';
 
 
 /**
@@ -1316,3 +1317,5 @@ export const IndexSet = mixin({},
 
 IndexSet.slice = IndexSet.copy = IndexSet.clone;
 IndexSet.EMPTY = IndexSet.create().freeze();
+
+registerModule('indexset', IndexSet);
