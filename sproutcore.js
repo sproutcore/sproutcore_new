@@ -7,6 +7,7 @@ import * as datastore from './datastore/datastore.js';
 import * as desktop from './desktop/desktop.js';
 import * as ajax from './ajax/ajax.js';
 
+export { GLOBAL} from './core/core.js';
 // this is done as the SC.mixin tries hasOwnProperty which is not present on 
 // the imported name spaces
 

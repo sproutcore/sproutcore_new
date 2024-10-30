@@ -1,7 +1,7 @@
 {
   "name": "sproutcore_next",
   "version": "0.0.5",
-  "description": "Attempt at next generation sc",
+  "description": "SproutCore next generation",
   "directories": {
     "test": "tests"
   },
@@ -9,19 +9,21 @@
   "type": "module",
   "exports": {
     ".": "./sproutcore.js",
-    "GLOBAL": "./sproutcore_global.js",
-    "core": "./core/core.js",
-    "datastore": "./datastore/datastore.js",
-    "desktop": "./desktop/desktop.js",
-    "event": "./event/event.js",
-    "responder": "./responder/responder.js",
-    "statechart": "./statechart/statechart.js",
-    "view": "./view/view.js",
-    "testing": "./testing/testing.js",
-    "css": "./sproutcore_css.js"
+    "./GLOBAL": "./sproutcore_global.js",
+    "./core": "./core/core.js",
+    "./datastore": "./datastore/datastore.js",
+    "./desktop": "./desktop/desktop.js",
+    "./event": "./event/event.js",
+    "./responder": "./responder/responder.js",
+    "./statechart": "./statechart/statechart.js",
+    "./view": "./view/view.js",
+    "./testing": "./testing/testing.js",
+    "./css": "./sproutcore_css.js",
+    "./aki-theme": "./themes/aki/theme.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:test-server": "webpack serve --config webpack.config.js",
+    "build": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
@@ -32,16 +34,19 @@
   "types": "./typings/core.d.ts",
   "dependencies": {
     "jquery": "^3.5.1",
-    "less": "^4.1.1"
+    "less": "^4.1.1",
+    "loader-utils": "^3.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.1",
+    "html-webpack-plugin": "^5.5.0",
     "httpserver": "^0.3.0",
-    "karma": "^6.3.1",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-firefox-launcher": "^2.1.0",
-    "karma-qunit": "^4.1.2",
-    "karma-webpack": "^5.0.0",
+    "playwright": "^1.48.1",
     "qunit": "^2.14.1",
-    "webpack": "^5.28.0"
+    "qunitjs": "^2.4.0",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0",
+    "webpack-merge": "^6.0.1"
   }
 }

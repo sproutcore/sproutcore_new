@@ -1,42 +1,16 @@
-const path = require('path');
-const webpack = require('webpack');
+import * as webpack from 'webpack';
 
-module.exports = {
-  mode: "development",
-  entry: {
-    core: {
-      import: "./core/core.js"
-    },
-    datastore: {
-      import: './datastore/datastore.js'
-    },
-    desktop: {
-      import: './desktop/desktop.js'
-    },
-    event: {
-      import: './event/event.js'
-    },
-    responder: {
-      import: './responder/responder.js'
-    },
-    statechart: {
-      import: './statechart/statechart.js',
-    },
-    view: {
-      import: './view/view.js'
-    },
-    testing: {
-      import: './testing/testing.js'
-    },
-    sproutcore_global: {
-      import: "./sproutcore.js",
-    },
-    
-  },
-  plugins: [
-    new webpack.ProvidePlugin({
-      // $: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.slim.js'),
-      // jQuery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.slim.js'),
-    })
-  ]
-}
+// default to make things easier
+import prod from './webpack.prod.js';
+import dev from './webpack.dev.js';
+
+export default (env, args) => {
+  switch (args.mode) {
+    case 'development':
+      return dev();
+    case 'production':
+      return prod();
+    default:
+      return dev();
+  }
+};

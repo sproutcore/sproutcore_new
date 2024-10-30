@@ -17,11 +17,16 @@
 //   });
 // });
 
-import { SC } from './sproutcore.js';
+import { SC, GLOBAL } from './sproutcore.js';
 
-export const SC = SproutCore;
-
-GLOBAL.SC = GLOBAL.Sproutcore = SC.mixin(GLOBAL.SC, SproutCore);
+if (GLOBAL.SC !== undefined) {
+  // this is stuff that was already defined in the template
+  // and should be copied over to the new SC object
+    Object.keys(GLOBAL.SC).forEach(k => {
+        SC[k] = GLOBAL.SC[k];
+    });
+}
+GLOBAL.SC = SC;
 // backwards compat
 GLOBAL.YES = true;
 GLOBAL.NO = false;
