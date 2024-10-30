@@ -1,3 +1,4 @@
+
 import { SC } from '/core/core.js';
 
 let counter = 0;
@@ -18,3 +19,9 @@ SC.onload = () => {
 }
 
 console.log('add_to_worker loaded');
+
+module('SCWorker');
+
+test('test SC.ProxyBinding', function (assert) {
+  assert.expect(0);
+});
