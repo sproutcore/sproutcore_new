@@ -8,6 +8,7 @@
 import { SC } from '../../core/core.js';
 import { Store } from './store.js';
 import { Record } from '../models/record.js';
+import { registerModule } from '../../core/system/root.js';
 // sc_require('core') ;
 
 /**
@@ -1650,3 +1651,4 @@ Query.registerQueryExtension = function(tokenName, token) {
 // // shorthand
 // Q = Query.from ;
 
+registerModule('query', Query);

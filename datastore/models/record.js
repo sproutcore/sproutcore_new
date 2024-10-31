@@ -14,12 +14,16 @@ import { FetchedAttribute } from './fetched_attribute.js';
 import { ManyAttribute } from './many_attribute.js';
 import { RecordAttribute } from './record_attribute.js';
 import { SingleAttribute } from './single_attribute.js';
+import { registerModule, registerRuntimeDep } from '../../core/system/root.js';
+
 
 let Store;
-
-import('../system/store.js').then(s => {
-  Store = s.Store;
+registerRuntimeDep('store', v => {
+  Store = v;
 });
+// import('../system/store.js').then(s => {
+//   Store = s.Store;
+// });
 
 // sc_require('system/query');
 
@@ -2047,3 +2051,6 @@ Record.mixin( /** @scope Record */ {
   @property {FixturesDataSource}
 */
 Record.fixtures = FixturesDataSource.create();
+
+
+registerModule('record', Record);

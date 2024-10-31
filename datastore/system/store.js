@@ -11,12 +11,15 @@ import { RecordArray } from './record_array.js';
 import { CascadeDataSource } from '../data_sources/cascade.js';
 import { Query } from './query.js';
 import { Record } from '../models/record.js';
+import { registerModule, registerRuntimeDep } from '../../core/system/root.js';
 
 let NestedStore;
-
-import('./nested_store.js').then(r => {
-  NestedStore = r.NestedStore;
+registerRuntimeDep('nestedstore', v => {
+  NestedStore = v;
 });
+// import('./nested_store.js').then(r => {
+//   NestedStore = r.NestedStore;
+// });
 
 /**
   @class
@@ -2834,3 +2837,5 @@ Store.mixin(/** @scope Store.prototype */{
   }
 
 });
+
+registerModule('store', Store);
