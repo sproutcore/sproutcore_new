@@ -9,6 +9,7 @@ import { SC } from '../../core/core.js';
 import { Query } from "./query.js";
 import { Store } from "./store.js";
 import { Record } from '../models/record.js';
+import { registerModule } from '../../core/system/root.js';
 
 // sc_require('system/store');
 
@@ -405,7 +406,8 @@ export const NestedStore = Store.extend(
 
         if (!editables) editables = this.editables = [];
         editables[storeKey] = 1; // mark as editable
-
+        // clone the datahash
+        this.dataHashes[storeKey] = SC.clone(pstore.dataHashes[storeKey], true);
       } else this.dataHashes[storeKey] = pstore.dataHashes[storeKey];
 
       // also copy the status + revision
@@ -759,3 +761,4 @@ export const NestedStore = Store.extend(
 
   });
 
+registerModule('nestedstore', NestedStore);
